@@ -1,0 +1,28 @@
+{
+  "name": "market-7",
+  "version": "1.0.0",
+  "description": "Woowa-techcamp-2020 Team Project (Jenny & Cho)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woowa-techcamp-2020/market-7.git"
+  },
+  "author": "eunjung-jenny, anaclumos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woowa-techcamp-2020/market-7/issues"
+  },
+  "homepage": "https://github.com/woowa-techcamp-2020/market-7#readme",
+  "dependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "pug": "^3.0.0"
+  }
+}
