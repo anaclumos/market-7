@@ -78,3 +78,16 @@ button.deactive {
     color: grey;
     font-weight: 600;
 }
+
+.hide {
+    display: none;
+}
+  
+.invalid-msg {
+    color: red;
+}
+
+.valid-msg {
+    color: grey;
+}
+  

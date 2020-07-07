@@ -9,7 +9,9 @@ block content
       img(src="/static/images/logo-ceo.png")
     p 필수 정보를 입력해주세요.
     form
-      input.id(type="text" placeholder="아이디* (4자 이상)")
+      .id
+        input(type="text" placeholder="아이디* (4자 이상)")
+        span
       input(type="password" placeholder="비밀번호* (8자 이상)")
       input(type="password" placeholder="비밀번호 재확인*")
       .row.mail
