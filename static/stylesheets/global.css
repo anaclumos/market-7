@@ -89,8 +89,14 @@ button.deactive {
 
 .invalid-msg {
   color: red;
+  font-size: 0.8rem;
+  padding-bottom: 1rem;
+  display: block;
 }
 
 .valid-msg {
   color: grey;
+  font-size: 0.8rem;
+  padding-bottom: 1rem;
+  display: block;
 }
