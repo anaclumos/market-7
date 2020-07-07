@@ -1,7 +1,13 @@
 extends template.pug
 
+block style
+  link(rel="stylesheet", href="/static/stylesheets/home.css")
+
 block content
-  p 사장님, 로그인해주세요!
-  button 배민사장님광장 로그인
-  a(href='') 아이디 / 비밀번호 찾기 
-  a(href='#') 회원가입
+  main.home
+    p 사장님, 로그인해주세요!
+    button.filled(onclick="location.href='/login'") 배민사장님광장 로그인
+    .more
+      a(href="#") 아이디 / 비밀번호 찾기 
+      span | 
+      a(href="/register") 회원가입
