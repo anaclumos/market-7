@@ -1,10 +1,10 @@
 .login .more {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .login .more .col:last-child {
-    color: grey;
-    font-size: 0.8rem;
+  color: grey;
+  font-size: 0.8rem;
 }
