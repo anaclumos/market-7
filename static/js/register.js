@@ -1,4 +1,6 @@
 const idInput = document.querySelector(".id > input");
+const pwInput = document.querySelector(".pw > input");
+const pw2Input = document.querySelector(".pw2 > input");
 
 const msg = {
   id: {
@@ -35,6 +37,8 @@ const msg = {
   }
 }
 
+let pw;
+
 const handleMsg = function(e, elem, status) {
   const innerText = msg[elem][status];
   const color = msg.color[status];
@@ -66,5 +70,28 @@ const validateId = function(e) {
   }
 }
 
+const validatePw = function(e) {
+  const pwTemp = e.target.value;
+  const reEng = /[a-zA-Z]/;
+  const reNum = /[0-9]/;
+  if (pwTemp.length >= 8 && pwTemp.length <= 20 && reEng.test(pwTemp) && reNum.test(pwTemp)){
+    pw = pwTemp;
+    handleMsg(e, "pw", "success");
+  } else {
+    handleMsg(e, "pw", "failure");
+  }
+}
+
+const validatePw2 = function(e) {
+  const pw2 = e.target.value;
+  if (pw2 !== pw) {
+    handleMsg(e, "pw2", "failure");
+  } else {
+    handleMsg(e, "pw2", "success");
+  }
+}
+
 idInput.addEventListener("input", handleIdUpperCase);
 idInput.addEventListener("focusout", validateId);
+pwInput.addEventListener("focusout", validatePw);
+pw2Input.addEventListener("focusout", validatePw2);

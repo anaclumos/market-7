@@ -12,6 +12,10 @@
     margin-left: 0.5rem;
 }
 
+input:not([type="checkbox"]) {
+    width: 100%;
+}
+
 .row input:not([type="checkbox"]) {
     flex: 1;
 }
