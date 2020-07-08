@@ -7,6 +7,10 @@ const activateInput = function() {
     forEach(elem => {
       if (["INPUT", "BUTTON"].includes(elem.tagName)) {
         elem.removeAttribute("disabled");
+        if (elem.tagName === "BUTTON") {
+          elem.classList.remove("deactive");
+          elem.classList.add("unfilled");
+        }
       }
     })
 }
@@ -16,6 +20,10 @@ const deactivateInput = function() {
     forEach(elem => {
       if (["INPUT", "BUTTON"].includes(elem.tagName)) {
         elem.setAttribute("disabled", "");
+        if (elem.tagName === "BUTTON") {
+          elem.classList.remove("unfilled");
+          elem.classList.add("deactive");
+        }
       }
     })
 }
