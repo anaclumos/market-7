@@ -6,11 +6,11 @@ var config = {
   iterations: 872791
 };
 
-function generateRandomString() {
+export function generateRandomSalt() {
   return crypto.randomBytes(config.saltBytes).toString('base64')
 }
 
-async function hash(input, salt) {
+export async function hash(input, salt) {
   return new Promise((resolve, reject) => {
     try {
       crypto.pbkdf2(input, salt, config.iterations, config.hashBytes, 'sha512', (err, key => {
@@ -18,8 +18,11 @@ async function hash(input, salt) {
         resolve(key.toString('base64'));
       }));
     } catch (e) {
-      console.log("hashWithString err:," + e);
+      console.log("hashWithString err: " + e);
       reject(e);
     }
   });
 }
+
+// const passwordSalt = generateRandomSalt();
+// const passwordHash = hash(password, passwordSalt);
