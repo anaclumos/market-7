@@ -25,10 +25,14 @@ block content
       select
         each val in ["naver.com", "hanmail.net", "nate.com", "hotmail.com", "gmail.com", "직접입력"]
           option= val
-      input(type="text" placeholder="이름*")
-      .row.tel-auth
-        input(type="tel" placeholder="휴대폰*")
-        button.deactive 인증받기
+      .name
+        input(type="text" placeholder="이름*")
+        span
+      .tel-auth
+        .row
+          input(type="tel" placeholder="휴대폰*")
+          button.deactive 인증받기
+        span
       ul
         li 인증번호 전송은 통신사에 따라 최대 1분까지 소요될 수 있습니다.
         li 인증번호가 도착하지 않을 경우 '인증번호 재전송'을 눌러주세요.
@@ -45,16 +49,16 @@ block content
       input(type="text" placeholder="상세주소")
       
       .terms
-        .term
+        .term.term__all
           input(type="checkbox")
-          span <b>전체 약관에 동의합니다</b>
-        .term
+          span 전체 약관에 동의합니다.
+        .term.term__mendatory
           input(type="checkbox")
           span 필수 항목에 동의합니다.
         span
           a(href="#") 배민사장님광장 이용약관
           a(href="#") 개인정보 수집이용 동의
-        .term
+        .term.term__optional
           input(type="checkbox")
           span 광고성 정보 수신 동의 (선택)
         ul
@@ -63,3 +67,4 @@ block content
       button.filled.wide 가입완료
 
   script(src="/static/js/register.js")
+  script(src="/static/js/terms.js")
