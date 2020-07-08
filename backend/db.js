@@ -7,12 +7,12 @@ const db = new nedb({
 export function registerNewUser(req, res, next) {
   db.find({ username: req.body.username }, async (err, doc) => {
     if (err !== null) { // db 검색 오류
-      console.log("unable to register new user: database failure: " + err);
+      console.log(`registerNewUser: unable to register new user, database failure -> ${err}`);
       res.status(401).json({ type: 'info', message: 'database failure' });
       return;
     }
     else if (doc.length !== 0) { // 이미 존재하는 username
-      console.log(`unable to register new user: username "${req.body.username}" already exists.`)
+      console.log(`registerNewUser: unable to register new user, username "${req.body.username}" already exists.`)
       res.status(401).json({ type: 'info', message: 'user already exists.' });
       return;
     }
@@ -20,7 +20,7 @@ export function registerNewUser(req, res, next) {
       if (!(req.body.username && req.body.passwordHash && req.body.passwordSalt
         && req.body.email && req.body.name && req.body.phone && req.body.agreedToTermsOfUse
         && req.body.isMarketingAllowed)) {
-        console.log("unable to register new user: required values have errors");
+        console.log("registerNewUser: unable to register new user, required values have errors");
         res.status(401).json({ type: 'info', message: 'required values have errors' });
       }
       else {
@@ -42,12 +42,32 @@ export function registerNewUser(req, res, next) {
             return;
           }
           else {
-            console.log("successfully added new user to db: " + insertedUserData.username);
+            console.log("registerNewUser: successfully added new user to db: " + insertedUserData.username);
             res.status(200).json({ type: 'info', message: 'register success' });
             return;
           }
         });
       }
+    }
+  });
+}
+
+export function getDatabaseSalt(req, res, next) {
+  db.find({ username: req.body.username }, async (err, doc) => {
+    if (err !== null) { // db 검색 오류
+      console.log("getDatabaseSalt: unable to register new user: database failure: " + err);
+      res.status(401).json({ type: 'info', message: 'database failure' });
+      return;
+    }
+    else if (doc.length !== 0) {
+      console.log(`getDatabaseSalt: successfully found username "${req.body.username}" in db, returning salt "${doc[0].passwordSalt}"`)
+      res.status(401).json({ "username": req.body.username, "passwordSalt": doc[0].passwordSalt });
+      return;
+    }
+    else {
+      console.log(`getDatabaseSalt: unable to get database salt: username "${req.body.username}" doesn't exist.`)
+      res.status(401).json({ type: 'info', message: 'user already exists.' });
+      return;
     }
   });
 }
