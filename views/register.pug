@@ -25,7 +25,9 @@ block content
       select
         each val in ["naver.com", "hanmail.net", "nate.com", "hotmail.com", "gmail.com", "직접입력"]
           option= val
-      input(type="text" placeholder="이름*")
+      .name
+        input(type="text" placeholder="이름*")
+        span
       .row.tel-auth
         input(type="tel" placeholder="휴대폰*")
         button.deactive 인증받기
