@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 var config = {
   hashBytes: 64,
-  saltBytes: 16,
+  saltBytes: 64,
   iterations: 872791
 };
 
