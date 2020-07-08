@@ -49,16 +49,16 @@ block content
       input(type="text" placeholder="상세주소")
       
       .terms
-        .term
+        .term.term__all
           input(type="checkbox")
-          span <b>전체 약관에 동의합니다</b>
-        .term
+          span 전체 약관에 동의합니다.
+        .term.term__mendatory
           input(type="checkbox")
           span 필수 항목에 동의합니다.
         span
           a(href="#") 배민사장님광장 이용약관
           a(href="#") 개인정보 수집이용 동의
-        .term
+        .term.term__optional
           input(type="checkbox")
           span 광고성 정보 수신 동의 (선택)
         ul
@@ -67,3 +67,4 @@ block content
       button.filled.wide 가입완료
 
   script(src="/static/js/register.js")
+  script(src="/static/js/terms.js")
