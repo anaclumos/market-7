@@ -1,6 +1,8 @@
-const idInput = document.querySelector(".id > input");
-const pwInput = document.querySelector(".pw > input");
-const pw2Input = document.querySelector(".pw2 > input");
+const idInput = document.querySelector(".id input");
+const pwInput = document.querySelector(".pw input");
+const pw2Input = document.querySelector(".pw2 input");
+const nameInput = document.querySelector(".name input");
+const telInput = document.querySelector(".tel-auth input");
 
 const msg = {
   id: {
@@ -29,7 +31,7 @@ const msg = {
   },
   tel: {
     success: "",
-    failure: "",
+    failure: "전화번호에는 숫자만 입력할 수 있습니다. 0123456789 형식으로 다시 입력해 주세요.",
   },
   color: {
     success: "grey",
@@ -42,10 +44,12 @@ let pw;
 const handleMsg = function(e, elem, status) {
   const innerText = msg[elem][status];
   const color = msg.color[status];
-  const infoMsgContainer = e.target.nextSibling;
+  let infoMsgContainer = e.target.nextSibling;
+  if (infoMsgContainer.tagName !== "SPAN") {
+    infoMsgContainer = e.target.parentElement.nextSibling;
+  }
   infoMsgContainer.innerText = innerText;
   e.target.style.borderColor = color;
-
   infoMsgContainer.classList.remove("hide");
   if (status === "success") {
     infoMsgContainer.classList.remove("invalid-msg");
@@ -53,6 +57,11 @@ const handleMsg = function(e, elem, status) {
   } else if (status === "failure") {
     infoMsgContainer.classList.remove("valid-msg");
     infoMsgContainer.classList.add("invalid-msg");
+  }
+  if (!innerText) {
+    infoMsgContainer.classList.add("hide");
+    infoMsgContainer.classList.remove("valid-msg");
+    infoMsgContainer.classList.remove("invalid-msg");
   }
 }
 
@@ -91,7 +100,29 @@ const validatePw2 = function(e) {
   }
 }
 
+const  validateName = function(e) {
+  const name = e.target.value;
+  const re = /[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;
+  if (re.test(name)){
+    handleMsg(e, "name", "failure");
+  } else {
+    handleMsg(e, "name", "success");
+  }
+}
+
+const validateTel = function(e) {
+  const tel = e.target.value;
+  const re = /[^0-9]/;
+  if (tel.length < 11 || tel.length > 12 || re.test(tel)) {
+    handleMsg(e, "tel", "failure");
+  } else {
+    handleMsg(e, "tel", "success");
+  }
+}
+
 idInput.addEventListener("input", handleIdUpperCase);
 idInput.addEventListener("focusout", validateId);
 pwInput.addEventListener("focusout", validatePw);
 pw2Input.addEventListener("focusout", validatePw2);
+nameInput.addEventListener("focusout", validateName);
+telInput.addEventListener("focusout", validateTel);
