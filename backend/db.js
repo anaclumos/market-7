@@ -1,6 +1,6 @@
 import nedb from 'nedb';
 const db = new nedb({
-  filename: './datafile.db',
+  filename: './backend/datafile.db',
   autoload: true
 });
 
@@ -8,7 +8,7 @@ export function registerNewUser(req, res, next) {
   db.find({ username: req.body.username }, async (err, doc) => {
     if (err !== null) { // db 검색 오류
       console.log(err);
-      res.status(401).json({ type: 'info', message: 'failed: user already exists' });
+      res.status(401).json({ type: 'info', message: 'database failure' });
       return;
     }
     else if (doc.length !== 0) { // 이미 존재하는 username
@@ -35,7 +35,7 @@ export function registerNewUser(req, res, next) {
           return;
         }
         else {
-          console.log("Successfully added new user to db: " + insertedUserData);
+          console.log("Successfully added new user to db: " + insertedUserData.username);
           res.status(200);
           res.json({
             type: 'info',
