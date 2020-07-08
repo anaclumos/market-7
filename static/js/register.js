@@ -54,6 +54,11 @@ const handleMsg = function(e, elem, status) {
     infoMsgContainer.classList.remove("valid-msg");
     infoMsgContainer.classList.add("invalid-msg");
   }
+  if (!innerText) {
+    infoMsgContainer.classList.add("hide");
+    infoMsgContainer.classList.remove("valid-msg");
+    infoMsgContainer.classList.remove("invalid-msg");
+  }
 }
 
 const handleIdUpperCase = function(e) {
