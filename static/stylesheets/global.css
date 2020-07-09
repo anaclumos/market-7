@@ -48,6 +48,11 @@ input[type="checkbox"] {
   margin: 0 0.5rem 0 0;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+}
+
 a {
   text-decoration: none;
   cursor: pointer;
@@ -83,10 +88,6 @@ button.deactive {
   font-weight: 600;
 }
 
-.hide {
-  display: none;
-}
-
 .invalid-msg {
   color: red;
   font-size: 0.8rem;
@@ -99,4 +100,8 @@ button.deactive {
   font-size: 0.8rem;
   padding-bottom: 1rem;
   display: block;
+}
+
+.hide {
+  display: none;
 }

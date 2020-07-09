@@ -2,7 +2,7 @@ const idInput = document.querySelector(".id input");
 const pwInput = document.querySelector(".pw input");
 const pw2Input = document.querySelector(".pw2 input");
 const nameInput = document.querySelector(".name input");
-const telInput = document.querySelector(".tel-auth input");
+const telInput = document.querySelector(".tel-auth .tel-auth__req input");
 
 const msg = {
   id: {
@@ -31,7 +31,7 @@ const msg = {
   },
   tel: {
     success: "",
-    failure: "전화번호에는 숫자만 입력할 수 있습니다. 0123456789 형식으로 다시 입력해 주세요.",
+    failure: "전화번호는 11자리로, 숫자만 입력할 수 있습니다. 0123456789 형식으로 다시 입력해 주세요.",
   },
   color: {
     success: "grey",
@@ -110,10 +110,24 @@ const  validateName = function(e) {
   }
 }
 
+const toggleTelAuthReqBtn = function(e) {
+  const telAuthReqBtn = telInput.nextSibling;
+  const inputLength = e.target.value.length;
+  if (inputLength === 11) {
+    telAuthReqBtn.removeAttribute("disabled");
+    telAuthReqBtn.classList.remove("deactive");
+    telAuthReqBtn.classList.add("unfilled");
+  } else {
+    telAuthReqBtn.setAttribute("disabled", "");
+    telAuthReqBtn.classList.remove("unfilled");
+    telAuthReqBtn.classList.add("deactive");
+  }
+}
+
 const validateTel = function(e) {
   const tel = e.target.value;
   const re = /[^0-9]/;
-  if (tel.length < 11 || tel.length > 12 || re.test(tel)) {
+  if (tel.length !== 11 || re.test(tel)) {
     handleMsg(e, "tel", "failure");
   } else {
     handleMsg(e, "tel", "success");
@@ -126,3 +140,4 @@ pwInput.addEventListener("focusout", validatePw);
 pw2Input.addEventListener("focusout", validatePw2);
 nameInput.addEventListener("focusout", validateName);
 telInput.addEventListener("focusout", validateTel);
+telInput.addEventListener("input", toggleTelAuthReqBtn);

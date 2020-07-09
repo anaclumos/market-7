@@ -2,11 +2,6 @@
   margin-top: 1rem;
 }
 
-.register .row {
-  display: flex;
-  align-items: center;
-}
-
 .row button {
   margin-top: 0;
   margin-left: 0.5rem;
