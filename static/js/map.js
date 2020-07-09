@@ -5,7 +5,7 @@ const closeDaumPostcode = function() {
   addressFinderContainer.style.display = "none";
 }
 
-const sample2_execDaumPostcode = function() {
+const execDaumPostcode = function() {
   new daum.Postcode({
     oncomplete(data) {
       // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
