@@ -19,8 +19,16 @@ export function registerNewUser(req, res, next) {
     else {
       if (!(req.body.username && req.body.passwordHash && req.body.passwordSalt
         && req.body.email && req.body.name && req.body.phone && req.body.agreedToTermsOfUse
-        && req.body.isMarketingAllowed)) {
+        && String(req.body.isMarketingAllowed))) {
         console.log("registerNewUser: unable to register new user, required values have errors");
+        if (!req.body.username) console.log("req.body.username  has error -> " + req.body.username);
+        if (!req.body.passwordHash) console.log("req.body.passwordHash  has error -> " + req.body.passwordHash);
+        if (!req.body.passwordSalt) console.log("req.body.passwordSalt  has error -> " + req.body.passwordSalt);
+        if (!req.body.email) console.log("req.body.email  has error -> " + req.body.email);
+        if (!req.body.name) console.log("req.body.name  has error -> " + req.body.name);
+        if (!req.body.phone) console.log("req.body.phone  has error -> " + req.body.phone);
+        if (!req.body.agreedToTermsOfUse) console.log("req.body.agreedToTermsOfUse  has error -> " + req.body.agreedToTermsOfUse);
+        if (!String(req.body.isMarketingAllowed)) console.log("req.body.isMarketingAllowed has error -> " + req.body.isMarketingAllowed);
         res.status(401).json({ type: 'info', message: 'required values have errors' });
       }
       else {
