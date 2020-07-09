@@ -59,13 +59,31 @@ export function getDatabaseSalt(req, res, next) {
       res.status(401).json({ type: 'info', message: 'database failure' });
       return;
     }
-    if (doc.length !== 0) {
-      console.log(`getDatabaseSalt: successfully found username "${req.body.username}" in db, returning salt "${doc[0].passwordSalt}"`)
-      res.status(200).json({ "username": req.body.username, "passwordSalt": doc[0].passwordSalt });
+    if (doc.length === 0) {
+      console.log(`getDatabaseSalt: unable to get database salt: username "${req.body.username}" doesn't exist.`)
+      res.status(401).json({ type: 'info', message: 'user does not exist.' });
       return;
     }
-    console.log(`getDatabaseSalt: unable to get database salt: username "${req.body.username}" doesn't exist.`)
-    res.status(401).json({ type: 'info', message: 'user already exists.' });
+    console.log(`getDatabaseSalt: successfully found username "${req.body.username}" in db, returning salt "${doc[0].passwordSalt}"`)
+    res.status(200).json({ "username": req.body.username, "passwordSalt": doc[0].passwordSalt });
     return;
+  });
+}
+
+export async function matchesUserCredentialsinDatabase(username, passwordHash) {
+  let userInfo = null;
+  db.find({ "username": username }, async (err, doc) => {
+    if (err !== null) { // db 검색 오류
+      console.log("matchesUserCredentialsinDatabase: unable to authenticate new user: database failure: " + err);
+    } else if (doc.length === 0) {
+      console.log(`matchesUserCredentialsinDatabase: unable to authenticate user: username "${username}" doesn't exist.`)
+    } else if (doc[0].passwordHash !== passwordHash) {
+      console.log(`matchesUserCredentialsinDatabase: unable to authenticate user: username "${username}" password doesn't match.`)
+    } else {
+      console.log(`matchesUserCredentialsinDatabase: successfully authenticated "${username}" in db, with passwordHash "${doc[0].passwordHash}"`)
+      userInfo = { "username": username, "valid": true };
+    }
+    console.log("userInfo is " + userInfo);
+    return userInfo;
   });
 }
