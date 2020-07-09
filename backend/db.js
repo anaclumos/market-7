@@ -51,7 +51,12 @@ export function registerNewUser(req, res, next) {
           }
           else {
             console.log("registerNewUser: successfully added new user to db: " + insertedUserData.username);
-            res.status(200).json({ type: 'info', message: 'register success' });
+            res.status(200).json({
+              "name": req.body.name,
+              "username": req.body.username,
+              "email": req.body.email,
+              "phone": req.body.phone,
+            });
             return;
           }
         });
