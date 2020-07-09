@@ -45,10 +45,10 @@ block content
 
         .optional__address
           .row
-            input(type="text" placeholder=" 우편번호" disabled)
-            button.deactive(disabled) 주소찾기
-          input(type="text" placeholder="주소" disabled)
-          input(type="text" placeholder="상세주소" disabled)
+            input(type="text" id="postcode" placeholder=" 우편번호" disabled)
+            button.deactive(onclick="sample2_execDaumPostcode()" disabled) 주소찾기
+          input(type="text" id="address" placeholder="주소" disabled)
+          input(type="text" id="detailAddress" placeholder="상세주소" disabled)
         
       .terms
         .term.term__all
@@ -68,6 +68,12 @@ block content
             a(href="#") 내용보기
       button.filled.wide#submit-btn 가입완료
 
+    div(id="addressFinderContainer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;")
+      img(src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1;width:1rem;height:1rem;" onclick="closeDaumPostcode()" alt="닫기 버튼")
+
   script(src="/static/js/register.js")
+  script(src="/static/js/validators.js")
   script(src="/static/js/terms.js")
   script(src="/static/js/optionalInfo.js")
+  script(src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js")
+  script(src="/static/js/map.js")
