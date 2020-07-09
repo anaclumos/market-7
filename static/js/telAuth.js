@@ -1,11 +1,13 @@
+export let authNumber;
+
 (function() {
   const telAuthContainer = document.querySelector(".tel-auth");
   const telAuthReqContainer = telAuthContainer.querySelector(".tel-auth__req");
   const telAuthReqBtn = telAuthReqContainer.querySelector("button");
   const telInput = telAuthReqContainer.querySelector("input");
-
+  
   let timer;
-
+  
   const showTimeLimit = function(timeLimitInString) {
     const timeLimit = document.querySelector(".tel-auth__res-limit");
     timeLimit.innerText = timeLimitInString;
@@ -20,7 +22,7 @@
 
   const setAuthTimer = function() {
     clearInterval(timer);
-    let limitInSec = 3;
+    let limitInSec = 120;
     timer = setInterval(() => {
       limitInSec -= 1;
       convertTimeLimit(limitInSec);
@@ -59,6 +61,15 @@
     telAuthReqBtn.innerText = "재전송";
   }
 
+  const getAuthNumber = function() {
+    authNumber = String(parseInt(Math.random() * 1000000));
+    const length = authNumber.length
+    if (length < 6) {
+      authNumber = '0'.repeat(6 - length) + authNumber;
+    }
+    console.log(`인증번호: ${authNumber}`);
+  };
+
   const handleReqBtnClick = function(e) {
     if (e.target.innerText !== "재전송") {
       convertInnerText();
@@ -66,6 +77,7 @@
       createAuthTimer();
     }
     setAuthTimer();
+    getAuthNumber()
   }
 
   const toggleTelAuthReqBtn = function(e) {
