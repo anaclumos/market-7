@@ -71,10 +71,6 @@ block content
     div(id="addressFinderContainer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;")
       img(src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1;width:1rem;height:1rem;" onclick="closeDaumPostcode()" alt="닫기 버튼")
 
-  script(src="/static/js/register.js")
-  script(src="/static/js/validators.js")
-  script(src="/static/js/terms.js")
-  script(src="/static/js/optionalInfo.js")
+  script(src="/static/js/register.js" type="module")
   script(src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js")
-  script(src="/static/js/map.js")
-  script(src="/static/js/telAuth.js")
+  
