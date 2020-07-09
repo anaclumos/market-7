@@ -11,7 +11,6 @@ export const validationConfig = {
   },
   pw: {
     validator(value) {
-      console.log(value)
       const reEng = /[a-zA-Z]/;
       const reNum = /[0-9]/;
       const reProhibited = /[^a-zA-Z0-9]/;
@@ -41,7 +40,6 @@ export const validationConfig = {
   },
   name: {
     validator(value) {
-      console.log(value);
       const re = /[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;
       return !re.test(value);
     },
@@ -60,6 +58,16 @@ export const validationConfig = {
       failure: "전화번호는 11자리로, 숫자만 입력할 수 있습니다. 0123456789 형식으로 다시 입력해 주세요.",
     }
   },
+  telAuth: {
+    validator(value, authNumber) {
+      return (value === authNumber); 
+    },
+    msg: {
+      success: "",
+      failure: "인증번호가 일치하지 않습니다. 다시 시도해주세요."
+    }
+  },
+
   color: {
     success: "grey",
     failure: "red",
@@ -72,11 +80,13 @@ export const validationConfig = {
     const innerText = this[e.target.name]["msg"][status];
     const color = this.color[status];
     let infoMsgContainer = e.target.nextSibling;
-    if (infoMsgContainer.tagName !== "SPAN") {
+    if (!infoMsgContainer || infoMsgContainer.tagName !== "SPAN") {
       infoMsgContainer = e.target.parentElement.nextSibling;
     }
+    if (e.target.tagName === "INPUT") {
+      e.target.style.borderColor = color;
+    }
     infoMsgContainer.innerText = innerText;
-    e.target.style.borderColor = color;
     infoMsgContainer.classList.remove("hide");
     if (status === "success") {
       infoMsgContainer.classList.remove("invalid-msg");

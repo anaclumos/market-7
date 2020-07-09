@@ -1,6 +1,7 @@
-import { validationConfig } from "./validator.js"
+import { validationConfig } from "./validator.js";
+import { authNumber } from "./telAuth.js";
 
-const mandatoryArgs = ["id", "pw", "pw2", "name", "tel"]
+const mandatoryArgs = ["id", "pw", "pw2", "name", "tel", "telAuth"]
 export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false, a), {});
 
 (function() {
@@ -9,6 +10,7 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
   const pw2Input = document.querySelector(".pw2 input");
   const nameInput = document.querySelector(".name input");
   const telInput = document.querySelector(".tel-auth .tel-auth__req input");
+  const telAuthResContainer = document.querySelector(".tel-auth__res");
 
   const handleIdUpperCase = function(e) {
     e.target.value = e.target.value.toLowerCase();
@@ -17,10 +19,10 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
   const checkValidity = function(e) {
     const argName = e.target.name;
     let isValid;
-    if (e.target.name !== "pw2") {
-      isValid = validationConfig[argName].validator(e.target.value);
-    } else {
+    if (e.target.name === "pw2") {
       isValid = validationConfig[argName].validator(e.target.value, pwInput.value);
+    } else {
+      isValid = validationConfig[argName].validator(e.target.value);
     }
     
     if (isValid) {
@@ -32,10 +34,28 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
     }
   }
 
+  const handleTelAuthResEvent = function(e) {
+    if (e.target.tagName === "BUTTON") {
+      const telAuthInput = telAuthResContainer.querySelector("input");
+      const isValid = validationConfig.telAuth.validator(telAuthInput.value, authNumber);
+
+      if (isValid) {
+        validationConfig.handler(e, validationConfig.status.SUCCESS);
+        isMandatoryArgsValid["telAuth"] = true;
+        console.log(isMandatoryArgsValid);
+      } else {
+        validationConfig.handler(e, validationConfig.status.FAILURE);
+        isMandatoryArgsValid["telAuth"] = false;
+        console.log(isMandatoryArgsValid);
+      }
+    }
+  }
+
   idInput.addEventListener("input", handleIdUpperCase);
   idInput.addEventListener("focusout", checkValidity);
   pwInput.addEventListener("focusout", checkValidity);
   pw2Input.addEventListener("focusout", checkValidity);
   nameInput.addEventListener("focusout", checkValidity);
   telInput.addEventListener("focusout", checkValidity);
+  telAuthResContainer.addEventListener("click", handleTelAuthResEvent)
 })();

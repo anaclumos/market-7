@@ -5,6 +5,7 @@ export let authNumber;
   const telAuthReqContainer = telAuthContainer.querySelector(".tel-auth__req");
   const telAuthReqBtn = telAuthReqContainer.querySelector("button");
   const telInput = telAuthReqContainer.querySelector("input");
+  const telAuthResContainer = telAuthContainer.querySelector(".tel-auth__res");
   
   let timer;
   
@@ -43,18 +44,15 @@ export let authNumber;
   }
 
   const showTelAuthResContainer = function() {
-    const telAuthResContainer = document.createElement("div");
     const telAuthResInput = document.createElement("input");
     telAuthResInput.type = "text";
     telAuthResInput.placeholder = "인증번호를 입력하세요.";
     const telAuthResBtn = document.createElement("button");
     telAuthResBtn.classList.add("unfilled");
     telAuthResBtn.innerText = "확인";
+    telAuthResBtn.name = "telAuth";
     telAuthResContainer.appendChild(telAuthResInput);
     telAuthResContainer.appendChild(telAuthResBtn);
-    telAuthResContainer.classList.add("row");
-    telAuthResContainer.classList.add("tel-auth__res");
-    telAuthContainer.appendChild(telAuthResContainer);
   }
 
   const convertInnerText = function() {
