@@ -59,15 +59,13 @@ export function getDatabaseSalt(req, res, next) {
       res.status(401).json({ type: 'info', message: 'database failure' });
       return;
     }
-    else if (doc.length !== 0) {
+    if (doc.length !== 0) {
       console.log(`getDatabaseSalt: successfully found username "${req.body.username}" in db, returning salt "${doc[0].passwordSalt}"`)
       res.status(200).json({ "username": req.body.username, "passwordSalt": doc[0].passwordSalt });
       return;
     }
-    else {
-      console.log(`getDatabaseSalt: unable to get database salt: username "${req.body.username}" doesn't exist.`)
-      res.status(401).json({ type: 'info', message: 'user already exists.' });
-      return;
-    }
+    console.log(`getDatabaseSalt: unable to get database salt: username "${req.body.username}" doesn't exist.`)
+    res.status(401).json({ type: 'info', message: 'user already exists.' });
+    return;
   });
 }
