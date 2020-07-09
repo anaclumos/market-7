@@ -1,3 +1,4 @@
+import { isMandatoryArgsValid } from "./isInputsValid.js";
 export let authNumber;
 
 (function() {
@@ -31,6 +32,10 @@ export let authNumber;
         clearInterval(timer);
         console.log("입력시간을 초과하였습니다");
         return;
+      }
+      if (isMandatoryArgsValid.telAuth) {
+        clearInterval(timer);
+        showTimeLimit("");
       }
     }, 1000);
     
