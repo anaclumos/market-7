@@ -8,14 +8,14 @@ block content
     figure
       img(src="/static/images/logo-ceo.png")
     form
-      input(type="text" placeholder="아이디")
-      input(type="password" placeholder="비밀번호")
-    .more
-      .col
-        input(type="checkbox")
-        span 아이디 저장
-      .col
-        a(href="#") 아이디 / 비밀번호 찾기
-        span  | 
-        a(href="/register") 회원가입
-    button.filled 로그인
+      input(type="text" placeholder="아이디" required)
+      input(type="password" placeholder="비밀번호" required)
+      .more
+        .col
+          input(type="checkbox")
+          span 아이디 저장
+        .col
+          a(href="#") 아이디 / 비밀번호 찾기
+          span  | 
+          a(href="/register") 회원가입
+      button.filled 로그인
