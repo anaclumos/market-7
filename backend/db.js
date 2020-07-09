@@ -61,7 +61,7 @@ export function getDatabaseSalt(req, res, next) {
     }
     else if (doc.length !== 0) {
       console.log(`getDatabaseSalt: successfully found username "${req.body.username}" in db, returning salt "${doc[0].passwordSalt}"`)
-      res.status(401).json({ "username": req.body.username, "passwordSalt": doc[0].passwordSalt });
+      res.status(200).json({ "username": req.body.username, "passwordSalt": doc[0].passwordSalt });
       return;
     }
     else {
