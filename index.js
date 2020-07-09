@@ -13,9 +13,13 @@ app.set('view engine', 'pug');
 
 // use
 app.use('/static', express.static('static'));
+app.use(express.urlencoded());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: 'secret key', resave: true, saveUninitialized: false, store: new connectNedbSession({ filename: './backend/session.db' }) }));
+app.use(session({
+  secret: 'secret key', resave: true, saveUninitialized: false
+  , store: new connectNedbSession({ filename: './backend/session.db'})
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -24,6 +28,7 @@ app.get('/', (req, res) => res.render('home'));
 app.get('/login', (req, res) => res.render('login'));
 app.get('/register', (req, res) => res.render('register'));
 app.get('/session', ensureAuthenticated, (req, res) => {
+  console.log(req.user);
   res.json({ 'type': 'info', 'message': 'session OK!' });
 });
 
@@ -33,4 +38,4 @@ app.post('/salt', (req, res) => { getDatabaseSalt(req, res) });
 app.post('/login', async (req, res, next) => { authenticateUser(req, res, next) });
 
 // listen
-app.listen(PORT, () => console.log(`✅ ${PORT}에서 듣는 중~~`));
+app.listen(PORT, () => console.log(`✅ http://localhost:${PORT} 에서 듣는 중~`));

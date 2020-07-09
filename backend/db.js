@@ -38,7 +38,7 @@ export function registerNewUser(req, res, next) {
           "isMarketingAllowed": req.body.isMarketingAllowed,
         }, (err, insertedUserData) => {
           if (err !== null) {
-            console.log(err);
+            console.log("error => " + err);
             return;
           }
           else {
@@ -71,19 +71,22 @@ export function getDatabaseSalt(req, res, next) {
 }
 
 export async function matchesUserCredentialsinDatabase(username, passwordHash) {
-  let userInfo = null;
-  db.find({ "username": username }, async (err, doc) => {
-    if (err !== null) { // db 검색 오류
-      console.log("matchesUserCredentialsinDatabase: unable to authenticate new user: database failure: " + err);
-    } else if (doc.length === 0) {
-      console.log(`matchesUserCredentialsinDatabase: unable to authenticate user: username "${username}" doesn't exist.`)
-    } else if (doc[0].passwordHash !== passwordHash) {
-      console.log(`matchesUserCredentialsinDatabase: unable to authenticate user: username "${username}" password doesn't match.`)
-    } else {
-      console.log(`matchesUserCredentialsinDatabase: successfully authenticated "${username}" in db, with passwordHash "${doc[0].passwordHash}"`)
-      userInfo = { "username": username, "valid": true };
-    }
-    console.log("userInfo is " + userInfo);
-    return userInfo;
-  });
+  console.log("matchesUserCredentialsinDatabase initiated.");
+  return new Promise((resolve, reject) => {
+    db.find({ "username": username }, async (err, doc) => {
+      if (err !== null) { // db 검색 오류
+        reject();
+        console.log("matchesUserCredentialsinDatabase: unable to authenticate new user: database failure: " + err);
+      } else if (doc.length === 0) {
+        reject();
+        console.log(`matchesUserCredentialsinDatabase: unable to authenticate user: username "${username}" doesn't exist.`);
+      } else if (doc[0].passwordHash !== passwordHash) {
+        reject();
+        console.log(`matchesUserCredentialsinDatabase: unable to authenticate user: username "${username}" password doesn't match.`);
+      } else {
+        console.log(`matchesUserCredentialsinDatabase: successfully authenticated "${username}" in db, with passwordHash "${doc[0].passwordHash}"`)
+        resolve({ "username": username, "valid": true });
+      }
+    });
+  }).catch(error => console.log("matchesUserCredentialsinDatabase: caught promise error -> " + error));
 }

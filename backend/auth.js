@@ -4,10 +4,8 @@ import { matchesUserCredentialsinDatabase } from './db'
 
 let LocalStrategy = passportLocal.Strategy;
 
-
 export function authenticateUser(req, res, next) {
-  passport.authenticate('login', async (err, user, userInfo) => {
-    console.log("USERUSER " + user);
+  passport.authenticate('login', async (err, user) => {
     if (err) {
       console.log("authenticateUser: unexpected err -> " + err);
       next(err);
@@ -27,18 +25,11 @@ export function authenticateUser(req, res, next) {
       }
     });
   })(req, res, next);
-
 }
 
-passport.use('login', new LocalStrategy(
-  {
-    usernameField: 'username',
-    passwordField: 'passwordHash',
-    passReqToCallback: true,
-  }, async (req, reqUsername, reqPasswordHash, done) => {
-    return done(null, await matchesUserCredentialsinDatabase(reqUsername, reqPasswordHash));
-  }
-));
+passport.use('login', new LocalStrategy(async function(username, password, done) {
+  return done(null, await matchesUserCredentialsinDatabase(username, password));
+}));
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -49,12 +40,10 @@ passport.deserializeUser(function (user, done) {
 });
 
 export function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    res.status(200).json({ "type": "info", "message": "user is authenticated" });
+  if (req.isAuthenticated())
     return next();
-  }
-  res.status(401).json({ "type": "info", "message": "user is not authenticated" });
+  else
+    res.status(401).json({ "type": "info", "message": "user is not authenticated" });
 }
-
 
 export { passport };
