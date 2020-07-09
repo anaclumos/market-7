@@ -18,11 +18,17 @@ const convertTimeLimit = function(seconds) {
 
 const setAuthTimer = function() {
   clearInterval(timer);
-  let limitInSec = 120;
+  let limitInSec = 3;
   timer = setInterval(() => {
     limitInSec -= 1;
     convertTimeLimit(limitInSec);
+    if (limitInSec === 0) {
+      clearInterval(timer);
+      console.log("입력시간을 초과하였습니다");
+      return;
+    }
   }, 1000);
+  
 }
 
 const createAuthTimer = function() {
