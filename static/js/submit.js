@@ -38,7 +38,7 @@ import { isMandatoryArgsValid } from "./isInputsValid.js"
         }
       }).then(res => {
         if (res.status === 200) {
-          location.href = "/"
+          location.href = "/done"
         } else {
           alert("회원가입에 실패하였습니다.")
         }

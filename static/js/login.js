@@ -26,7 +26,7 @@
         }
       }).then(res => {
         if (res.status === 200) {
-          location.href = "/";
+          location.href = "/done";
         } else {
           alert("입력하신 정보가 올바르지 않습니다.");
         }
