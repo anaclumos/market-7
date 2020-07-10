@@ -37,4 +37,4 @@ app.post('/salt', (req, res) => { getDatabaseSalt(req, res) });
 app.post('/login', async (req, res, next) => { authenticateUser(req, res, next) });
 
 // listen
-app.listen(PORT, () => console.log(`✅ http://localhost:${PORT} 에서 듣는 중~`));
+app.listen(process.env.PORT || PORT, () => console.log(`✅ http://localhost:${PORT} 에서 듣는 중~`));
