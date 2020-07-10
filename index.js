@@ -6,14 +6,14 @@ import { passport, authenticateUser, ensureAuthenticated } from './backend/auth'
 const connectNedbSession = require('connect-nedb-session')(session);
 
 const app = express();
-const PORT = 80;
+const PORT = 8080;
 
 // set
 app.set('view engine', 'pug');
 
 // use
 app.use('/static', express.static('static'));
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -37,4 +37,4 @@ app.post('/salt', (req, res) => { getDatabaseSalt(req, res) });
 app.post('/login', async (req, res, next) => { authenticateUser(req, res, next) });
 
 // listen
-app.listen(PORT, () => console.log(`✅ http://localhost:${PORT} 에서 듣는 중~`));
+app.listen(process.env.PORT || PORT, () => console.log(`✅ http://localhost:${PORT} 에서 듣는 중~`));
