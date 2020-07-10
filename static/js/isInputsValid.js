@@ -1,8 +1,8 @@
 import { validationConfig } from "./validator.js";
 import { authNumber } from "./telAuth.js";
 
-const mandatoryArgs = ["id", "pw", "pw2", "name", "tel", "telAuth"]
-export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false, a), {});
+const mandatoryArgs = ["id", "pw", "pw2", "emailDomain", "name", "tel", "telAuth"]
+export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = "", a), {});
 
 (function() {
   const idInput = document.querySelector(".id input");
@@ -30,10 +30,10 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
     
     if (isValid) {
       validationConfig.handler(e, validationConfig.status.SUCCESS);
-      isMandatoryArgsValid[argName] = true;
+      isMandatoryArgsValid[argName] = e.target.value;
     } else {
       validationConfig.handler(e, validationConfig.status.FAILURE);
-      isMandatoryArgsValid[argName] = false;
+      isMandatoryArgsValid[argName] = "";
     }
   }
 
