@@ -6,7 +6,7 @@ import { passport, authenticateUser, ensureAuthenticated } from './backend/auth'
 const connectNedbSession = require('connect-nedb-session')(session);
 
 const app = express();
-const PORT = 80;
+const PORT = 8080;
 
 // set
 app.set('view engine', 'pug');
