@@ -8,8 +8,8 @@ block content
     figure
       img(src="/static/images/logo-ceo.png")
     form
-      input(type="text" placeholder="아이디" required)
-      input(type="password" placeholder="비밀번호" required)
+      input.id(type="text" placeholder="아이디" required)
+      input.pw(type="password" placeholder="비밀번호" required)
       .more
         .col
           input(type="checkbox")
@@ -19,3 +19,5 @@ block content
           span  | 
           a(href="/register") 회원가입
       button.filled 로그인
+  
+  script(src="/static/js/login.js")
