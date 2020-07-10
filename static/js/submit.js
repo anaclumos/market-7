@@ -12,11 +12,33 @@ import { isMandatoryArgsValid } from "./isInputsValid.js"
       e.preventDefault();
     }
   }
+  const mandatoryArgs = ["id", "pw", "pw2", "emailDomain", "name", "tel", "telAuth"]
 
   const handleSubmitBtnClick = function() {
     const isSubmittable = Object.values(isMandatoryArgsValid).every(elem => elem);
     if (isSubmittable) {
-      console.log("send POST request")
+      const registerInfo = {
+        "username": isMandatoryArgsValid.id,
+        "passwordHash": isMandatoryArgsValid.pw,
+        "passwordSalt": "salt",
+        "email": isMandatoryArgsValid.emailDomain,
+        "name": isMandatoryArgsValid.name,
+        "phone": isMandatoryArgsValid.tel,
+        "postalCode": "",
+        "postalAddress": "",
+        "postalAddressDetails": "",
+        "agreedToTermsOfUse": true,
+        "isMarketingAllowed": false
+      }
+      fetch("http://localhost:4000/register", {
+        method: "POST",
+        body: JSON.stringify(registerInfo),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })  
+    } else {
+      alert("필수 입력란을 작성해주세요.")
     }
   }
 

@@ -1,8 +1,8 @@
 import { validationConfig } from "./validator.js";
 import { authNumber } from "./telAuth.js";
 
-const mandatoryArgs = ["id", "pw", "pw2", "name", "tel", "telAuth"]
-export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false, a), {});
+const mandatoryArgs = ["id", "pw", "pw2", "emailDomain", "name", "tel", "telAuth"]
+export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = "", a), {});
 
 (function() {
   const idInput = document.querySelector(".id input");
@@ -19,8 +19,6 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
 
   const checkValidity = function(e) {
     const argName = e.target.name;
-    console.log(argName)
-    console.log(e.target.value)
     let isValid;
     if (e.target.name === "pw2") {
       isValid = validationConfig[argName].validator(e.target.value, pwInput.value);
@@ -30,10 +28,10 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
     
     if (isValid) {
       validationConfig.handler(e, validationConfig.status.SUCCESS);
-      isMandatoryArgsValid[argName] = true;
+      isMandatoryArgsValid[argName] = e.target.value;
     } else {
       validationConfig.handler(e, validationConfig.status.FAILURE);
-      isMandatoryArgsValid[argName] = false;
+      isMandatoryArgsValid[argName] = "";
     }
   }
 
@@ -45,11 +43,10 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = false
       if (isValid) {
         validationConfig.handler(e, validationConfig.status.SUCCESS);
         isMandatoryArgsValid["telAuth"] = true;
-        console.log(isMandatoryArgsValid);
       } else {
         validationConfig.handler(e, validationConfig.status.FAILURE);
         isMandatoryArgsValid["telAuth"] = false;
-        console.log(isMandatoryArgsValid);
+        alert("인증번호가 일치하지 않습니다.");
       }
     }
   }
