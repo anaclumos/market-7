@@ -19,7 +19,7 @@ form {
 }
 
 main {
-  width: 375px;
+  max-width: 400px;
   padding: 0.5rem 1rem;
   margin-left: auto;
   margin-right: auto;
