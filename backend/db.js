@@ -8,13 +8,11 @@ export function registerNewUser(req, res, next) {
   db.find({ username: req.body.username }, async (err, doc) => {
     if (err !== null) { // db 검색 오류
       console.log(`registerNewUser: unable to register new user, database failure -> ${err}`);
-      res.status(401).json({ type: 'info', message: 'database failure' });
-      return;
+      res.sendStatus(401);
     }
     else if (doc.length !== 0) { // 이미 존재하는 username
       console.log(`registerNewUser: unable to register new user, username "${req.body.username}" already exists.`)
-      res.status(401).json({ type: 'info', message: 'user already exists.' });
-      return;
+      res.sendStatus(401);
     }
     else {
       if (!(req.body.username && req.body.passwordHash && req.body.passwordSalt
@@ -29,7 +27,7 @@ export function registerNewUser(req, res, next) {
         if (!req.body.phone) console.log("req.body.phone  has error -> " + req.body.phone);
         if (!req.body.agreedToTermsOfUse) console.log("req.body.agreedToTermsOfUse  has error -> " + req.body.agreedToTermsOfUse);
         if (!String(req.body.isMarketingAllowed)) console.log("req.body.isMarketingAllowed has error -> " + req.body.isMarketingAllowed);
-        res.status(401).json({ type: 'info', message: 'required values have errors' });
+        res.sendStatus(401);
       }
       else {
         db.insert({
@@ -51,13 +49,7 @@ export function registerNewUser(req, res, next) {
           }
           else {
             console.log("registerNewUser: successfully added new user to db: " + insertedUserData.username);
-            res.status(200).json({
-              "name": req.body.name,
-              "username": req.body.username,
-              "email": req.body.email,
-              "phone": req.body.phone,
-            });
-            return;
+            res.sendStatus(200);
           }
         });
       }
