@@ -19,8 +19,6 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = "", a
 
   const checkValidity = function(e) {
     const argName = e.target.name;
-    console.log(argName)
-    console.log(e.target.value)
     let isValid;
     if (e.target.name === "pw2") {
       isValid = validationConfig[argName].validator(e.target.value, pwInput.value);
@@ -45,11 +43,10 @@ export const isMandatoryArgsValid = mandatoryArgs.reduce((a, b) => (a[b] = "", a
       if (isValid) {
         validationConfig.handler(e, validationConfig.status.SUCCESS);
         isMandatoryArgsValid["telAuth"] = true;
-        console.log(isMandatoryArgsValid);
       } else {
         validationConfig.handler(e, validationConfig.status.FAILURE);
         isMandatoryArgsValid["telAuth"] = false;
-        console.log(isMandatoryArgsValid);
+        alert("인증번호가 일치하지 않습니다.");
       }
     }
   }
