@@ -10,56 +10,75 @@ block content
     p 필수 정보를 입력해주세요.
     form
       .id
-        input(type="text" placeholder="아이디* (4자 이상)")
+        input(type="text" name="id" placeholder="아이디* (4자 이상)")
         span
       .pw
-        input(type="password" placeholder="비밀번호* (8자 이상)")
+        input(type="password" name="pw" placeholder="비밀번호* (8자 이상)")
         span
       .pw2
-        input(type="password" placeholder="비밀번호 재확인*")
+        input(type="password" name="pw2" placeholder="비밀번호 재확인*")
         span
-      .row.mail
-        input(type="text" placeholder="이메일 앞자리*")
-        span @
-        input(type="text" placeholder="이메일 뒷자리*") 
-      select
-        each val in ["naver.com", "hanmail.net", "nate.com", "hotmail.com", "gmail.com", "직접입력"]
-          option= val
-      input(type="text" placeholder="이름*")
-      .row.tel-auth
-        input(type="tel" placeholder="휴대폰*")
-        button.deactive 인증받기
+      .mail
+        .row
+          input(type="text" placeholder="이메일 앞자리*")
+          span @
+          input.emailDomainField(type="text" name="emailDomain" placeholder="이메일 뒷자리*")
+        span
+        select.emailDomainSelect
+            option(value = '') 직접 입력
+            option(value = 'naver.com') naver.com
+            option(value = 'hanmail.net') hanmail.net
+            option(value = 'nate.com') nate.com
+            option(value = 'hotmail.com') hotmail.com
+            option(value = 'gmail.com') gmail.com
+      .name
+        input(type="text" name="name" placeholder="이름*")
+        span
+      .tel-auth
+        .row.tel-auth__req
+          input(type="tel" name="tel" placeholder="휴대폰*")
+          button.deactive(disabled) 인증받기
+        span
+        .row.tel-auth__res
+        span
       ul
         li 인증번호 전송은 통신사에 따라 최대 1분까지 소요될 수 있습니다.
         li 인증번호가 도착하지 않을 경우 '인증번호 재전송'을 눌러주세요.
       
-      .row.optional-check
-        input(type="checkbox")
-        span 선택 정보를 입력하시겠어요?
-        a(href="#") 내용보기
-
-      .row.address-find
-        input(type="text" placeholder=" 우편번호")
-        button.deactive 주소찾기
-      input(type="text" placeholder="주소")
-      input(type="text" placeholder="상세주소")
-      
-      .terms
-        .term
+      .optional
+        .row.optional__check
           input(type="checkbox")
-          span <b>전체 약관에 동의합니다</b>
-        .term
+          span 선택 정보를 입력하시겠어요?
+          a(href="#") 내용보기
+
+        .optional__address
+          .row
+            input(type="text" id="postcode" placeholder=" 우편번호" disabled)
+            button.deactive(onclick="execDaumPostcode()" disabled) 주소찾기
+          input(type="text" id="address" placeholder="주소" disabled)
+          input(type="text" id="detailAddress" placeholder="상세주소" disabled)
+        
+      .terms
+        .term.term__all
+          input(type="checkbox")
+          span 전체 약관에 동의합니다.
+        .term.term__mendatory
           input(type="checkbox")
           span 필수 항목에 동의합니다.
         span
           a(href="#") 배민사장님광장 이용약관
           a(href="#") 개인정보 수집이용 동의
-        .term
+        .term.term__optional
           input(type="checkbox")
           span 광고성 정보 수신 동의 (선택)
         ul
           li 만 14세 이상 회원만 가입 가능합니다. 
             a(href="#") 내용보기
-      button.filled.wide 가입완료
+      button.filled.wide#submit-btn 가입완료
 
-  script(src="/static/js/register.js")
+    div(id="addressFinderContainer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;")
+      img(src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1;width:1rem;height:1rem;" onclick="closeDaumPostcode()" alt="닫기 버튼")
+
+  script(src="/static/js/register.js" type="module")
+  script(src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js")
+  

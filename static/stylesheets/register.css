@@ -1,78 +1,73 @@
 .register form {
-    margin-top: 1rem;
-}
-
-.register .row {
-    display: flex;
-    align-items: center;
+  margin-top: 1rem;
 }
 
 .row button {
-    margin-top: 0;
-    margin-left: 0.5rem;
+  margin-top: 0;
+  margin-left: 0.5rem;
 }
 
 input:not([type="checkbox"]) {
-    width: 100%;
+  width: 100%;
 }
 
 .row input:not([type="checkbox"]) {
-    flex: 1;
+  flex: 1;
 }
 
 ul {
-    margin-top: 0.5rem;
-    margin-bottom: 3rem;
-    color: grey;
-    font-size: 0.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
+  color: grey;
+  font-size: 0.8rem;
 }
 
 ul li:not(:last-child) {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 ul li:before {
-    content: "• ";
+  content: "• ";
 }
 
 a {
-    text-decoration: underline;
-    margin-left: 0.5rem;
+  text-decoration: underline;
+  margin-left: 0.5rem;
 }
 
 .term {
-    margin: 0.5rem;
-    margin-left: 0;
+  margin: 0.5rem;
+  margin-left: 0;
 }
 
 .term:first-child {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .terms > span {
-    margin-left: 1rem;
-    color: grey;
-    text-decoration: underline;
+  margin-left: 1rem;
+  color: grey;
+  text-decoration: underline;
 }
 
 .row.optional-check {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .row.optional-check a {
-    color: grey;
+  color: grey;
 }
 
 .row.mail {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .row.mail input {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .row.mail span {
-    margin: 0 0.5rem;
+  margin: 0 0.5rem;
 }
 /* .row.mail {
     display: flex;
