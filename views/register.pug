@@ -21,10 +21,15 @@ block content
       .row.mail
         input(type="text" placeholder="이메일 앞자리*")
         span @
-        input(type="text" placeholder="이메일 뒷자리*") 
-      select
-        each val in ["naver.com", "hanmail.net", "nate.com", "hotmail.com", "gmail.com", "직접입력"]
-          option= val
+        input.emailDomainField(type="text" placeholder="이메일 뒷자리*")
+      span
+      select.emailDomainSelect
+          option(value = '') 직접 입력
+          option(value = 'naver.com') naver.com
+          option(value = 'hanmail.net') hanmail.net
+          option(value = 'nate.com') nate.com
+          option(value = 'hotmail.com') hotmail.com
+          option(value = 'gmail.com') gmail.com
       .name
         input(type="text" name="name" placeholder="이름*")
         span
