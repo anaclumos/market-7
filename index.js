@@ -13,7 +13,7 @@ app.set('view engine', 'pug');
 
 // use
 app.use('/static', express.static('static'));
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
