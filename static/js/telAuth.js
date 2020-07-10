@@ -70,7 +70,7 @@ export let authNumber;
     if (length < 6) {
       authNumber = '0'.repeat(6 - length) + authNumber;
     }
-    console.log(`인증번호: ${authNumber}`);
+    alert(`인증번호 ${authNumber} 를 입력해주세요.`)
   };
 
   const handleReqBtnClick = function(e) {
