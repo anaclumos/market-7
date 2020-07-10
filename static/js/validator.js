@@ -30,12 +30,13 @@ export const validationConfig = {
       failure: "위 비밀번호와 일치하지 않습니다. 다시 입력해 주세요.",
     }
   },
-  email: {
-    validator() {
-
+  emailDomain: {
+    validator(value) {
+      return value;
     },
     msg: {
-
+      success: "",
+      failure: "이메일을 입력해주세요."
     }
   },
   name: {

@@ -25,7 +25,8 @@ main {
 }
 
 main > *,
-form > * {
+form > *,
+form select {
   width: 100%;
 }
 
