@@ -36,7 +36,13 @@ import { isMandatoryArgsValid } from "./isInputsValid.js"
         headers: {
           "Content-Type": "application/json"
         }
-      })  
+      }).then(res => {
+        if (res.status === 200) {
+          location.href = "/done"
+        } else {
+          alert("회원가입에 실패하였습니다.")
+        }
+      }) 
     } else {
       alert("필수 입력란을 작성해주세요.")
     }

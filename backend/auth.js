@@ -8,20 +8,19 @@ export function authenticateUser(req, res, next) {
   passport.authenticate('login', async (err, user) => {
     if (err) {
       console.log("authenticateUser: unexpected err -> " + err);
-      next(err);
+      res.sendStatus(401);
     }
     if (!user) {
       console.log("authenticateUser: unexpected user info -> " + user);
-      return res.status(401).redirect('/login');
+      res.sendStatus(401);
     }
     req.logIn(user, (err) => {
       if (err) {
         console.log("authenticateUser: req.logIn failure -> " + err);
-        res.status(401).send(user);
-        return next(err);
+        res.sendStatus(401);
       } else {
         console.log("authenticateUser: successfully logged in.");
-        res.status(200).send(user);
+        res.sendStatus(200);
       }
     });
   })(req, res, next);

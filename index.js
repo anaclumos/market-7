@@ -27,6 +27,7 @@ app.use(passport.session());
 app.get('/', (req, res) => res.render('home'));
 app.get('/login', (req, res) => res.render('login'));
 app.get('/register', (req, res) => res.render('register'));
+app.get('/done', (req, res) => res.render('done'));
 app.get('/session', ensureAuthenticated, (req, res) => {
   res.json(req.user);
 });
